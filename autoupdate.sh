@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 cd /home/chenxinxing/gfw
 python gfwListgen.py
 git add gfwdomains.conf
