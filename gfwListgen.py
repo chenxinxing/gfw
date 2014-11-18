@@ -16,9 +16,9 @@ gfwsetfree = open('gfwsetfree.conf', 'w')
 
 # some sites can be visited via https or is already in known list
 oklist = ['flickr.com','amazon.com','twimg.com']
-print "fetching gfwList ..."
+#print "fetching gfwList ..."
 d = urllib.urlopen(gfwlist).read()
-print("gfwList fetched")
+#print("gfwList fetched")
 
 data = base64.b64decode(d)
 lines = string.split(data, "\n")
@@ -38,7 +38,7 @@ for l in lines:
                 continue
         if l[0] == "[":
                 continue
-        l = string.replace(l, "||","").lstrip(".")
+        l = string.replace(l, "||","")
         l = string.replace(l, "|https://","")
         l = string.replace(l, "|http://","")
         # strip everything from "/" to the end
@@ -62,11 +62,11 @@ newlist.sort()
 ipaddress = '^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$'
 
 for l in newlist:
-        if l == re.compile(ipaddress):
-#               gfwdn.write('server=/'+l+'/127.0.0.1#2053\n')
+#        if l == re.compile(ipaddress):
+	if l == re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"):
                 gfwsetfree.write('ipset=/'+l+'/setmefree\n')
         else:
-                gfwdn.write('server=/.'+l+'/127.0.0.1#1053\n')
+		gfwdn.write('server=/'+l+'/127.0.0.1#1053\n')
                 gfwsetfree.write('ipset=/'+l+'/setmefree\n')
 gfwdn.close()
 gfwsetfree.close()
