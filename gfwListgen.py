@@ -64,10 +64,10 @@ ipaddress = '^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01
 for l in newlist:
         if l == re.compile(ipaddress):
 #               gfwdn.write('server=/'+l+'/127.0.0.1#2053\n')
-             gfwsetfree.write('ipset=/'+l+'/setmefree\n')
+                gfwsetfree.write('ipset=/'+l+'/setmefree\n')
         else:
-                     gfwdn.write('server=/'+l+'/127.0.0.1#1053\n')
-                     gfwsetfree.write('ipset=/'+l+'/setmefree\n')
+                gfwdn.write('server=/.'+l+'/127.0.0.1#1053\n')
+                gfwsetfree.write('ipset=/'+l+'/setmefree\n')
 gfwdn.close()
 gfwsetfree.close()
 
