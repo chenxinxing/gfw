@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/chenxinxing/gfw
+#cd /home/chenxinxing/gfw
 python gfwListgen.py
 git add gfwdomains.conf
 git add gfwsetfree.conf
