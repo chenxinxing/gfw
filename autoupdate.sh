@@ -3,6 +3,6 @@
 python gfwListgen.py
 git add gfwdomains.conf
 git add gfwsetfree.conf
-git commit -m "auto general by google vps crontab on %date%"
+git commit -m "auto general by google vps crontab on generated date:$(date) ."
 git push -u origin master
 
