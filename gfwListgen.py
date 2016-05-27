@@ -7,7 +7,8 @@ import base64
 import string
 import re
 
-gfwlist = 'http://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt'
+#gfwlist = 'http://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt'
+gfwlist = 'https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt'
 
 gfwlistfile = open('gfwlist.txt', 'w')
 gfwdn = open('gfwdomains.conf', 'w')
