@@ -51,7 +51,7 @@ jobs:
 #         pushd luci-app-openclash/tools/po2lmo
 #         make && sudo make install
 #         popd
-  
+
 #         #下载coolsnowwolf lean源代码
         git clone https://github.com/coolsnowwolf/lede
 #         #copy coolsnowwolf lean源代码下的lean包到原版目录。
@@ -73,12 +73,12 @@ jobs:
         sed -i 's/\.ssid=OpenWrt/\.ssid=stoneson/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
         sed -i "s/set system\.\@system\[-1\]\.hostname='OpenWrt'/set system.@system[-1].hostname='WNDR4300'/" ./package/base-files/files/bin/config_generate
 #         sed -i "s/set system\.\@system\[-1\]\.timezone='UTC'/set system.@system[-1].timezone='CST-8'/" ./package/base-files/files/bin/config_generate
-        
+
         sed -i "s/0\.openwrt\.pool\.ntp\.org/ntp1.aliyun.com/" ./package/base-files/files/bin/config_generate
         sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
         echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
         echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
-      
+        
         ./scripts/feeds clean
         ./scripts/feeds update -a
         ./scripts/feeds install -a
