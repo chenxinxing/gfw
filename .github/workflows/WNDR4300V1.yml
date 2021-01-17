@@ -33,10 +33,10 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs  git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
         sudo timedatectl set-timezone "Asia/Shanghai"
         
-#     - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
-#       run: |
-#         #下载原版内容openwrt
-#         git clone https://github.com/openwrt/openwrt
+    - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
+      run: |
+        #下载原版内容openwrt
+        git clone https://github.com/openwrt/openwrt
 #         # Clone openclash项目
 #         cd openwrt
 #         mkdir package/luci-app-openclash
@@ -53,42 +53,44 @@ jobs:
 #         popd
   
 #         #下载coolsnowwolf lean源代码
-#         git clone https://github.com/coolsnowwolf/lede
+        git clone https://github.com/coolsnowwolf/lede
 #         #copy coolsnowwolf lean源代码下的lean包到原版目录。
-#         cp -r lede/package/lean/ openwrt/package/
+        cp -r lede/package/lean/ openwrt/package/
 #             #删除coolsnowwolf lean源代码
 #         rm -rf lede/
-#         rm -rf ./openwrt/package/lean/luci-app-qbittorrent/
-#         rm -rf ./openwrt/package/lean/luci-app-ssrserver-python/
+        rm -rf ./openwrt/package/lean/luci-app-qbittorrent/
+        rm -rf ./openwrt/package/lean/qbittorrent/
+        rm -rf ./openwrt/package/lean/luci-app-ssrserver-python/
         
-#     - name: 修改配置信息 ｜Generate config file
-#       run: |
-#         cd openwrt
+    - name: 修改配置信息 ｜Generate config file
+      run: |
+        cd openwrt
 #         #echo "src-git lienol https://github.com/Lienol/openwrt-package" >> feeds.conf.default
+        echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
 #         #sed -i 's/wndr4300_mtdlayout=mtdparts=ar934x-nfc:256k(u-boot)ro,256k(u-boot-env)ro,256k(caldata)ro,512k(pot),2048k(language),512k(config),3072k(traffic_meter),2048k(kernel),23552k(ubi),25600k@0x6c0000(firmware),256k(caldata_backup),-(reserved)/wndr4300_mtdlayout=mtdparts=ar934x-nfc:256k(u-boot)ro,256k(u-boot-env)ro,256k(caldata)ro,512k(pot),2048k(language),512k(config),3072k(traffic_meter),2048k(kernel),121856k(ubi),123904k@0x6c0000(firmware),256k(caldata_backup),-(reserved)/' ./target/linux/ar71xx/image/legacy.mk
-#         sed -i 's/root::0:0:99999:7:::/root:\$1\$wEehtjxj\$YBu4quNfVUjzfv8p\/PBo5\.:0:0:99999:7:::/' ./package/base-files/files/etc/shadow
-#         sed -i 's/\.disabled=1/\.disabled=0/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
-#         sed -i 's/\.ssid=OpenWrt/\.ssid=stoneson/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
-#         sed -i "s/set system\.\@system\[-1\]\.hostname='OpenWrt'/set system.@system[-1].hostname='WNDR4300'/" ./package/base-files/files/bin/config_generate
+        sed -i 's/root::0:0:99999:7:::/root:\$1\$wEehtjxj\$YBu4quNfVUjzfv8p\/PBo5\.:0:0:99999:7:::/' ./package/base-files/files/etc/shadow
+        sed -i 's/\.disabled=1/\.disabled=0/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
+        sed -i 's/\.ssid=OpenWrt/\.ssid=stoneson/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
+        sed -i "s/set system\.\@system\[-1\]\.hostname='OpenWrt'/set system.@system[-1].hostname='WNDR4300'/" ./package/base-files/files/bin/config_generate
 #         sed -i "s/set system\.\@system\[-1\]\.timezone='UTC'/set system.@system[-1].timezone='CST-8'/" ./package/base-files/files/bin/config_generate
         
-#         sed -i "s/0\.openwrt\.pool\.ntp\.org/ntp1.aliyun.com/" ./package/base-files/files/bin/config_generate
-#         sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
-#         echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
-#         echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
+        sed -i "s/0\.openwrt\.pool\.ntp\.org/ntp1.aliyun.com/" ./package/base-files/files/bin/config_generate
+        sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
+        echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
+        echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
       
-#         ./scripts/feeds clean
-#         ./scripts/feeds update -a
-#         ./scripts/feeds install -a
-#         rm -rf ./tmp && rm -rf .config
-#         rm -rf ./package/feeds/packages/seafile-server/
+        ./scripts/feeds clean
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        rm -rf ./tmp && rm -rf .config
+        rm -rf ./package/feeds/packages/seafile-server/
 #         curl -fsSL https://github.com/chenxinxing/lede/raw/master/.github/config-4300 > .config
-#         make defconfig
-#         make prereq
+        make defconfig
+        make prereq
         
     - name: SSH 连接，设置menuconfig
-      uses: mxschmitt/action-tmate@v1 #在退出连接后不能进行到下一个步骤，所以在实际使用中没有多少价值，只能用于 SSH 连接。
-#       uses: csexton/debugger-action@master #同样是通过 tmate 连接，退出连接后可持续进行下一个步骤，能更好的应用到实际项目中使用。
+#       uses: mxschmitt/action-tmate@v1 #在退出连接后不能进行到下一个步骤，所以在实际使用中没有多少价值，只能用于 SSH 连接。
+      uses: csexton/debugger-action@master #同样是通过 tmate 连接，退出连接后可持续进行下一个步骤，能更好的应用到实际项目中使用。
     
 #     - name: Download package
 #       run: |
