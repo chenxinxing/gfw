@@ -41,6 +41,7 @@ jobs:
         rm -rf ./openwrt/package/lean/luci-app-qbittorrent/
         rm -rf ./openwrt/package/lean/qbittorrent/
         rm -rf ./openwrt/package/lean/luci-app-ssrserver-python/
+        rm -rf ./openwrt/package/lean/autosamba/ ./openwrt/package/lean/luci-app-docker/ ./openwrt/package/lean/qt5/ ./openwrt/package/lean/qBittorrent
 #         # Clone openclash项目
 #         cd openwrt
 #         mkdir package/luci-app-openclash
