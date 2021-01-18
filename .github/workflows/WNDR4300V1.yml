@@ -37,11 +37,8 @@ jobs:
       run: |   #下载原版内容openwrt
         git clone https://github.com/openwrt/openwrt
         git clone https://github.com/coolsnowwolf/lede
-        cp -r lede/package/lean/ openwrt/package/
-        rm -rf ./openwrt/package/lean/luci-app-qbittorrent/
-        rm -rf ./openwrt/package/lean/qbittorrent/
-        rm -rf ./openwrt/package/lean/luci-app-ssrserver-python/
-        rm -rf ./openwrt/package/lean/autosamba/ ./openwrt/package/lean/luci-app-docker/ ./openwrt/package/lean/qt5/ ./openwrt/package/lean/qBittorrent
+#        cp -r lede/package/lean/ openwrt/package/
+#        rm -rf ./openwrt/package/lean/luci-app-qbittorrent/ ./openwrt/package/lean/qbittorrent/ ./openwrt/package/lean/luci-app-ssrserver-python/ ./openwrt/package/lean/autosamba/ ./openwrt/package/lean/luci-app-docker/ ./openwrt/package/lean/qt5/ ./openwrt/package/lean/qBittorrent
 #         # Clone openclash项目
 #         cd openwrt
 #         mkdir package/luci-app-openclash
@@ -80,32 +77,27 @@ jobs:
         sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
         echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
         echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
-        ./scripts/feeds clean
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
-        rm -rf ./tmp && rm -rf .config
-        rm -rf ./package/feeds/packages/seafile-server/
-#       curl -fsSL https://github.com/chenxinxing/lede/raw/master/.github/config-4300 > .config
-#        make defconfig
-#        make prereq
+        ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a
+#        rm -rf ./tmp && rm -rf .config && rm -rf ./package/feeds/packages/seafile-server/
+#        curl -fsSL https://github.com/chenxinxing/lede/raw/master/.github/config-4300 > .config
+#        make defconfig && make prereq
         
     - name: SSH 连接，设置menuconfig
 #       uses: mxschmitt/action-tmate@v1 #在退出连接后不能进行到下一个步骤，所以在实际使用中没有多少价值，只能用于 SSH 连接。
       uses: csexton/debugger-action@master #同样是通过 tmate 连接，退出连接后可持续进行下一个步骤，能更好的应用到实际项目中使用。
 #       uses: P3TERX/debugger-action@master
     
-#     - name: Download package
-#       run: |
-#         cd openwrt
-#         make download -j8
-#         find dl -size -1024c -exec ls -l {} \;
-#         find dl -size -1024c -exec rm -f {} \;
+    - name: Download package
+      run: |
+        cd openwrt
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
     
 #     - name: 开始编译 | Build
 #       run: |
 #         cd openwrt
-#         make -j$(($(nproc) + 1)) V=s 2>&1 
-#      # | tee build.log 
+#         make -j$(($(nproc) + 1)) V=s 2>&1 | tee build.log 
     
 #     - name: Upload build.log to WeTransfer
 #       run: |
