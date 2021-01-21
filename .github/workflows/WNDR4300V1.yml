@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04   #ubuntu-latest #ubuntu-18.04 #
+    runs-on: ubuntu-latest  #ubuntu-latest #ubuntu-18.04 #20.04 
     #if: github.event.repository.owner.id == github.event.sender.id
     steps:
     - name: 系统环境更新、清理空间 | Installation depends
@@ -26,7 +26,7 @@ jobs:
         #sudo swapoff /swapfile
         docker rmi `docker images -q`
         sudo rm -rf /swapfile /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+#        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo apt-get update
