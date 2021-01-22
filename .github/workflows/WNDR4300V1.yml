@@ -1,8 +1,8 @@
 name: build OpenWrt WNDR4300V1
 on: 
   #push:
-  #schedule:
-  #- cron: 0 0 * * 5
+  schedule:
+  - cron: 0 0 * * 5
   watch:
     types: started
   
@@ -25,8 +25,8 @@ jobs:
       run: |
         #sudo swapoff /swapfile
         docker rmi `docker images -q`
-        #sudo rm -rf /swapfile /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-        #sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+        sudo rm -rf /swapfile /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo dpkg --configure -a
