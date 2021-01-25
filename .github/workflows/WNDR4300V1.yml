@@ -38,29 +38,8 @@ jobs:
       run: |   #下载原版内容openwrt
         git clone https://github.com/openwrt/openwrt
         git clone https://github.com/coolsnowwolf/lede
-#        cp -r lede/package/lean/ openwrt/package/
-#        rm -rf ./openwrt/package/lean/luci-app-qbittorrent/ ./openwrt/package/lean/qbittorrent/ ./openwrt/package/lean/luci-app-ssrserver-python/ ./openwrt/package/lean/autosamba/ ./openwrt/package/lean/luci-app-docker/ ./openwrt/package/lean/qt5/ ./openwrt/package/lean/qBittorrent
-#         # Clone openclash项目
-#         cd openwrt
-#         mkdir package/luci-app-openclash
-#         cd package/luci-app-openclash
-#         git init
-#         git remote add -f origin https://github.com/vernesong/OpenClash.git
-#         git config core.sparsecheckout true
-#         echo "luci-app-openclash" >> .git/info/sparse-checkout
-#         git pull origin master
-#         git branch --set-upstream-to=origin/master master
-#         # 编译 po2lmo (如果有po2lmo可跳过)
-#         pushd luci-app-openclash/tools/po2lmo
-#         make && sudo make install
-#         popd
-    
-#         #copy coolsnowwolf lean源代码下的lean包到原版目录。
         
-#             #删除coolsnowwolf lean源代码
-#         rm -rf lede/
-        
-    - name: 修改LEDE 配置
+    - name: 修改coolsnowwolf LEDE 配置
       run: |
         cd lede
         echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
@@ -105,7 +84,29 @@ jobs:
 #         #curl -fsSL https://github.com/chenxinxing/lede/raw/master/.github/config-4300 > .config
 #         curl -fsSL https://github.com/chenxinxing/gfw/raw/master/openwrt/config.buildinfo  > .config
 # #        make defconfig && make prereq
-        
+
+    - name: Upload build.log to WeTransfer
+      run: |
+        cd openwrt
+        tar cvfz wndr4300.tgz bin/*
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress wndr4300.tgz 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+
+    - name: 钉钉通知
+      uses: ghostoy/dingtalk-action@master
+      with:
+        webhook: "https://oapi.dingtalk.com/robot/send?access_token=36a1e8b0ef6ba7ccddd320cfb9fceae841917ed4850a329aedc52f87d05a5877"
+        msgtype: markdown
+        content: |
+          {
+            "title": "github.workflow 通知：",
+            "text": "**WNDR4300V1.yml <font color=#FFFF00 size=4>构建完成</font>::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+          }
+        secret: "SECb72bffd2104d07454dc9754a6bf0a9f4fd1e8bf110de7b87d1f5af7a14e0598a"
+
+
+
     - name: SSH 连接，设置menuconfig
 #       uses: mxschmitt/action-tmate@v1 #在退出连接后不能进行到下一个步骤，所以在实际使用中没有多少价值，只能用于 SSH 连接。
       uses: csexton/debugger-action@master #同样是通过 tmate 连接，退出连接后可持续进行下一个步骤，能更好的应用到实际项目中使用。
@@ -122,15 +123,7 @@ jobs:
 #       run: |
 #         cd openwrt
 #         make -j$(($(nproc) + 1)) V=s 2>&1 | tee build.log 
-    
-    - name: Upload build.log to WeTransfer
-      run: |
-        cd openwrt
-        tar cvfz wndr4300.tgz bin/*
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress wndr4300.tgz 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        
+
     - name : 上传编译包｜Upload artifact
       uses: actions/upload-artifact@master
       with:
