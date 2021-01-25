@@ -85,14 +85,6 @@ jobs:
 #         curl -fsSL https://github.com/chenxinxing/gfw/raw/master/openwrt/config.buildinfo  > .config
 # #        make defconfig && make prereq
 
-    - name: Upload build.log to WeTransfer
-      run: |
-        cd openwrt
-        tar cvfz wndr4300.tgz bin/*
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress wndr4300.tgz 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-
     - name: 钉钉通知
       uses: ghostoy/dingtalk-action@master
       with:
@@ -123,6 +115,14 @@ jobs:
 #       run: |
 #         cd openwrt
 #         make -j$(($(nproc) + 1)) V=s 2>&1 | tee build.log 
+
+    - name: Upload build.log to WeTransfer
+      run: |
+        cd openwrt
+        tar cvfz wndr4300.tgz bin/*
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress wndr4300.tgz 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
     - name : 上传编译包｜Upload artifact
       uses: actions/upload-artifact@master
