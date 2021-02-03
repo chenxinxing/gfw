@@ -21,6 +21,9 @@ jobs:
       run: |   #下载原版内容openwrt
         git clone https://github.com/openwrt/openwrt
         git clone https://github.com/coolsnowwolf/lede
+
+    - name: SSH 连接，设置menuconfig
+      uses: csexton/debugger-action@master #同样是通过 tmate 连接，退出连接后可持续进行下一个步骤，能更好的应用到实际项目中使用。
         
     - name: 修改coolsnowwolf LEDE 配置
       run: |
@@ -42,3 +45,4 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
