@@ -1,4 +1,4 @@
-name: build OpenWrt WNDR4300V1
+name: 编译 WNDR4300V1 OpenWrt
 on: 
   #push:
   schedule:
