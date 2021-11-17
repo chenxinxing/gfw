@@ -1,8 +1,8 @@
 name: build coolsnowwolf/lede X86_64
 on: 
   #push:
-  schedule:
-  - cron: 0 0 * * 5
+  #schedule:
+  #- cron: 0 0 * * 5
   watch:
     types: started
   
