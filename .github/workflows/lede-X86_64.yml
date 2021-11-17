@@ -58,9 +58,9 @@ jobs:
     - name: Upload build.log to WeTransfer
       run: |
         cd openwrt
-        tar cvfz wndr4300.tgz bin/*
+        tar cvfz lede-X86_64.tgz bin/*
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress wndr4300.tgz 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress lede-X86_64.tgz 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
     - name: 钉钉通知
@@ -71,12 +71,12 @@ jobs:
         content: |
           {
             "title": "github.workflow 通知：",
-            "text": "**WNDR4300V1.yml <font color=#FFFF00 size=4>构建完成</font>::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+            "text": "**lede-X86_64.yml <font color=#FFFF00 size=4>构建完成</font>::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
           }
         secret: "SECb72bffd2104d07454dc9754a6bf0a9f4fd1e8bf110de7b87d1f5af7a14e0598a"
 
     - name : 上传编译包｜Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: WNDR4300V1
-        path: openwrt/bin
+        name: lede-X86_64
+        path: lede/bin
