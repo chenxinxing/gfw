@@ -30,7 +30,7 @@ jobs:
         sudo -E apt-get -qq clean
         sudo dpkg --configure -a
         sudo apt-get -u update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs  git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
         sudo timedatectl set-timezone "Asia/Shanghai"
         
     - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
@@ -45,10 +45,10 @@ jobs:
         sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
         echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
         echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
-        make clean
+        make clean && make dirclean
         rm -rf ./tmp && rm -rf .config
-        ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a
         curl -fsSL https://github.com/chenxinxing/gfw/raw/master/config.lede.X64 > .config
+        ./scripts/feeds update -a && ./scripts/feeds install -a
         make defconfig && make prereq
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
