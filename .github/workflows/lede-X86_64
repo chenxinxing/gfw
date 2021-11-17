@@ -1,4 +1,4 @@
-name: build OpenWrt WNDR4300V1
+name: build coolsnowwolf/lede X86_64
 on: 
   #push:
   schedule:
