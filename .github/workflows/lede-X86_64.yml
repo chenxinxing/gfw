@@ -70,7 +70,7 @@ jobs:
 
     - name: Upload build.log to WeTransfer
       run: |
-        cd openwrt
+        cd lede
         tar cvfz lede-X86_64.tgz bin/*
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress lede-X86_64.tgz 2>&1 | tee wetransfer.log
