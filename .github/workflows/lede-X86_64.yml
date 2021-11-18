@@ -32,7 +32,19 @@ jobs:
         sudo apt-get -u update
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
         sudo timedatectl set-timezone "Asia/Shanghai"
-        
+
+    - name: 钉钉通知
+      uses: ghostoy/dingtalk-action@master
+      with:
+        webhook: "https://oapi.dingtalk.com/robot/send?access_token=36a1e8b0ef6ba7ccddd320cfb9fceae841917ed4850a329aedc52f87d05a5877"
+        msgtype: markdown
+        content: |
+          {
+            "title": "github.workflow 通知：",
+            "text": "**lede-X86_64.yml <font color=#FFFF00 size=4>环境准备完成</font>::准备下载源码编译。"
+          }
+        secret: "SECb72bffd2104d07454dc9754a6bf0a9f4fd1e8bf110de7b87d1f5af7a14e0598a"
+  
     - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
       run: | 
         git clone https://github.com/coolsnowwolf/lede
