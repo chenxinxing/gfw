@@ -32,15 +32,17 @@ jobs:
         git clone https://github.com/deplives/luci-app-turboacc.git openwrt/package/chenxx/luci-app-turboacc
         git clone https://github.com/flytosky-f/openwrt-vlmcsd.git openwrt/package/chenxx/openwrt-vlmcsd
         git clone https://github.com/flytosky-f/luci-app-vlmcsd.git openwrt/package/chenxx/luci-app-vlmcsd
+        git clone https://github.com/mitsukileung/luci-app-aliyundrive-webdav.git openwrt/package/chenxx/luci-app-aliyundrive-webdav
 
-        mkdir -p openwrt/package/chenxx/luci-app-diskman && \
-        wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/applications/luci-app-diskman/Makefile -O openwrt/package/chenxx/luci-app-diskman/Makefile
         mkdir -p openwrt/package/chenxx/parted && \
         wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/Parted.Makefile -O openwrt/package/chenxx/parted/Makefile
 
 
-        #cp -r lede/package/lean/*vlmcsd* openwrt/package/chenxx/
-        #cp -r lede/package/lean/*vsftpd* openwrt/package/chenxx/
+        cp -r lede/package/lean/pdnsd-alt openwrt/package/chenxx/
+        cp -r lede/package/lean/*vsftpd* openwrt/package/chenxx/
+        #cp -r lede/package/lean/*aliyundrive-webdav* openwrt/package/chenxx/
+        rm -rf lede/
+
 
     - name: 修改配置信息 ｜Generate config file
       run: |
@@ -73,7 +75,7 @@ jobs:
        make && sudo make install
        popd
 
-    - name: Clone openclash 项目
+    - name: 开始项目编译
       run: |
        cd openwrt
        ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a
