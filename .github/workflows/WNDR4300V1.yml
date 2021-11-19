@@ -80,10 +80,9 @@ jobs:
        cd openwrt
        ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a
        curl -fsSL https://github.com/chenxinxing/gfw/raw/master/openwrt/config.buildinfo  > .config
+       ./scripts/feeds update -a && ./scripts/feeds install -a
        make defconfig && make prereq
        make download -j8
-       find dl -size -1024c -exec ls -l {} \;
-       find dl -size -1024c -exec rm -f {} \;
        make -j1
 
     - name: 钉钉通知
