@@ -59,9 +59,9 @@ jobs:
         sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
         echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
         echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
-        make clean && make dirclean
-        rm -rf ./tmp && rm -rf .config
-        curl -fsSL https://github.com/chenxinxing/gfw/raw/master/config.lede.X64 > .config
+        #make clean && make dirclean
+        #rm -rf ./tmp && rm -rf .config
+        #curl -fsSL https://github.com/chenxinxing/gfw/raw/master/config.lede.X64 > .config
         ./scripts/feeds update -a && ./scripts/feeds install -a
         make defconfig && make prereq
         make download -j8
