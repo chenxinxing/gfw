@@ -1,10 +1,10 @@
 name: build coolsnowwolf/lede X86_64
 on: 
-  push:
+  #push:
   schedule:
   - cron: 0 0 * * 2
-  watch:
-    types: started
+  #watch:
+  #  types: started
   
 #env:
 #  REPO_URL: https://github.com/coolsnowwolf/lede
