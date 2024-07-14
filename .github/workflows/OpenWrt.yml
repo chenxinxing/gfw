@@ -1,4 +1,4 @@
-name: build OpenWrt WNDR4300V1
+name: build OpenWrt
 on: 
   push:
   #schedule:
