@@ -1,6 +1,6 @@
 name: build OpenWrt WNDR4300V1
 on: 
-  #push:
+  push:
   #schedule:
   #- cron: 0 0 * * 5
   watch:
@@ -28,8 +28,8 @@ jobs:
       run: |   #下载原版内容openwrt
         git clone https://github.com/openwrt/openwrt
         git clone https://github.com/coolsnowwolf/lede
-        git clone https://github.com/chinaboy2345/luci-app-ramfree.git openwrt/package/chenxx/luci-app-ramfree
-        git clone https://github.com/zxl78585/luci-app-filetransfer.git openwrt/package/chenxx/luci-app-filetransfer
+        #git clone https://github.com/chinaboy2345/luci-app-ramfree.git openwrt/package/chenxx/luci-app-ramfree
+        #git clone https://github.com/zxl78585/luci-app-filetransfer.git openwrt/package/chenxx/luci-app-filetransfer
         #git clone https://github.com/deplives/luci-app-turboacc.git openwrt/package/chenxx/luci-app-turboacc
         git clone https://github.com/flytosky-f/openwrt-vlmcsd.git openwrt/package/chenxx/openwrt-vlmcsd
         git clone https://github.com/flytosky-f/luci-app-vlmcsd.git openwrt/package/chenxx/luci-app-vlmcsd
