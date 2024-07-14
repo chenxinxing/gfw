@@ -57,6 +57,7 @@ jobs:
        sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
        echo "net.netfilter.nf_conntrack_max=65535" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
        echo "net.ipv4.ip_forward = 1" >> ./package/base-files/files/etc/sysctl.d/10-default.conf
+       sed -i 's/+libpcre/+libpcre2/g' ./package/feeds/telephony/freeswitch/Makefile
 
     - name: Clone openclash 项目
       run: |
