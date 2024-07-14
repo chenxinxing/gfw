@@ -1,6 +1,6 @@
 name: build OpenWrt WNDR4300V1
 on: 
-  push:
+  #push:
   #schedule:
   #- cron: 0 0 * * 5
   watch:
