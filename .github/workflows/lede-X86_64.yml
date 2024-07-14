@@ -51,7 +51,20 @@ jobs:
         git clone https://github.com/coolsnowwolf/lede
         cd lede
         echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
-        git clone https://github.com/vernesong/OpenClash.git ./package/OpenClash
+        #git clone https://github.com/vernesong/OpenClash.git ./package/OpenClash
+        # Clone openclash 项目
+        mkdir package/luci-app-openclash
+        cd package/luci-app-openclash
+        git init
+        git remote add -f origin https://github.com/vernesong/OpenClash.git
+        git config core.sparsecheckout true
+        echo "luci-app-openclash" >> .git/info/sparse-checkout
+        git pull --depth 1 origin master
+        git branch --set-upstream-to=origin/master master
+        # 编译 po2lmo (如果有po2lmo可跳过)
+        pushd luci-app-openclash/tools/po2lmo
+        make && sudo make install
+        popd
         #sed -i 's/\.disabled=1/\.disabled=0/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
         #sed -i 's/\.ssid=OpenWrt/\.ssid=stoneson/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
         sed -i "s/set system\.\@system\[-1\]\.timezone='UTC'/set system.@system[-1].timezone='CST-8'/" ./package/base-files/files/bin/config_generate
