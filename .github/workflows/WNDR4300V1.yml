@@ -29,17 +29,14 @@ jobs:
         git clone https://github.com/coolsnowwolf/lede
         git clone https://github.com/chinaboy2345/luci-app-ramfree.git openwrt/package/chenxx/luci-app-ramfree
         git clone https://github.com/zxl78585/luci-app-filetransfer.git openwrt/package/chenxx/luci-app-filetransfer
-        git clone https://github.com/deplives/luci-app-turboacc.git openwrt/package/chenxx/luci-app-turboacc
+        #git clone https://github.com/deplives/luci-app-turboacc.git openwrt/package/chenxx/luci-app-turboacc
         git clone https://github.com/flytosky-f/openwrt-vlmcsd.git openwrt/package/chenxx/openwrt-vlmcsd
         git clone https://github.com/flytosky-f/luci-app-vlmcsd.git openwrt/package/chenxx/luci-app-vlmcsd
-        git clone https://github.com/mitsukileung/luci-app-aliyundrive-webdav.git openwrt/package/chenxx/luci-app-aliyundrive-webdav
-
-        mkdir -p openwrt/package/chenxx/parted && \
-        wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/Parted.Makefile -O openwrt/package/chenxx/parted/Makefile
-
-
-        cp -r lede/package/lean/pdnsd-alt openwrt/package/chenxx/
-        cp -r lede/package/lean/*vsftpd* openwrt/package/chenxx/
+        #git clone https://github.com/mitsukileung/luci-app-aliyundrive-webdav.git openwrt/package/chenxx/luci-app-aliyundrive-webdav
+        #mkdir -p openwrt/package/chenxx/parted && \
+        #wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/Parted.Makefile -O openwrt/package/chenxx/parted/Makefile
+        #cp -r lede/package/lean/pdnsd-alt openwrt/package/chenxx/
+        #cp -r lede/package/lean/*vsftpd* openwrt/package/chenxx/
         #cp -r lede/package/lean/*aliyundrive-webdav* openwrt/package/chenxx/
         rm -rf lede/
 
@@ -51,7 +48,7 @@ jobs:
        sed -i 's/root::0:0:99999:7:::/root:\$1\$wEehtjxj\$YBu4quNfVUjzfv8p\/PBo5\.:0:0:99999:7:::/' ./package/base-files/files/etc/shadow
        sed -i 's/\.disabled=1/\.disabled=0/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
        sed -i 's/\.ssid=OpenWrt/\.ssid=stoneson/' ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
-       sed -i "s/set system\.\@system\[-1\]\.hostname='OpenWrt'/set system.@system[-1].hostname='WNDR4300'/" ./package/base-files/files/bin/config_generate
+       #sed -i "s/set system\.\@system\[-1\]\.hostname='OpenWrt'/set system.@system[-1].hostname='WNDR4300'/" ./package/base-files/files/bin/config_generate
        sed -i "s/set system\.\@system\[-1\]\.timezone='UTC'/set system.@system[-1].timezone='CST-8'/" ./package/base-files/files/bin/config_generate
        sed -i "s/0\.openwrt\.pool\.ntp\.org/ntp1.aliyun.com/" ./package/base-files/files/bin/config_generate
        sed -i "s/1\.openwrt\.pool\.ntp\.org/time1.cloud.tencent.com/" ./package/base-files/files/bin/config_generate
