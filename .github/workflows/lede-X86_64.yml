@@ -50,7 +50,7 @@ jobs:
       run: | 
         git clone https://github.com/coolsnowwolf/lede
         cd lede
-        echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
+        #echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
         #git clone https://github.com/vernesong/OpenClash.git ./package/OpenClash
         # Clone openclash 项目
         mkdir package/luci-app-openclash
