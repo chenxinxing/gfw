@@ -1,6 +1,6 @@
 name: build coolsnowwolf/lede X86_64
 on: 
-  #push:
+  push:
   schedule:
   - cron: 0 0 * * 2
   watch:
@@ -84,6 +84,7 @@ jobs:
         #make defconfig && make prereq
         make download -j8
         make V=s -j$(nproc)
+        make package/luci-app-openclash/luci-app-openclash/compile V=99
 
     - name: 钉钉通知
       uses: ghostoy/dingtalk-action@master
