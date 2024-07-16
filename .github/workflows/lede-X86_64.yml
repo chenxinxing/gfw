@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest #ubuntu-18.04 #20.04 
     #if: github.event.repository.owner.id == github.event.sender.id
     steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: 系统环境更新、清理空间 | Installation depends
       run: |
         docker rmi `docker images -q`
@@ -78,7 +81,7 @@ jobs:
         rm -rf ./tmp && rm -rf .config
         curl -fsSL https://github.com/chenxinxing/gfw/raw/master/config.lede.X64 > .config
         ./scripts/feeds update -a && ./scripts/feeds install -a
-        make defconfig && make prereq
+        #make defconfig && make prereq
         make download -j8
         make V=s -j$(nproc)
 
@@ -97,7 +100,7 @@ jobs:
     - name : 上传编译包｜Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: lede-X86_64
+        name: lede-X86_64-${{ steps.date.outputs.date }}
         path: lede/bin
         
     - name: 钉钉通知
