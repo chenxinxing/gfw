@@ -23,7 +23,8 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      #run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: 系统环境更新、清理空间 | Installation depends
       run: |
         docker rmi `docker images -q`
