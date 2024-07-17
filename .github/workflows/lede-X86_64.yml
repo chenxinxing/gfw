@@ -21,10 +21,6 @@ jobs:
     runs-on: ubuntu-latest #ubuntu-18.04 #20.04 
     #if: github.event.repository.owner.id == github.event.sender.id
     steps:
-    - name: Get current date
-      id: date
-      #run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: 系统环境更新、清理空间 | Installation depends
       run: |
         docker rmi `docker images -q`
@@ -102,7 +98,7 @@ jobs:
     - name : 上传编译包｜Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: lede-X86_64-${{ steps.date.outputs.date }}
+        name: lede-X86_64
         path: lede/bin
         
     - name: 钉钉通知
