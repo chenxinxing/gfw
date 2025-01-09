@@ -78,7 +78,7 @@ jobs:
         rm -rf ./tmp && rm -rf .config
         curl -fsSL https://github.com/chenxinxing/gfw/raw/master/config.lede.X64 > .config
         ./scripts/feeds update -a && ./scripts/feeds install -a
-        #make defconfig && make prereq
+        make defconfig && make prereq
         make download -j8
         make V=s -j$(nproc)
         #make package/luci-app-openclash/luci-app-openclash/compile V=99
