@@ -5,20 +5,22 @@ on:
     types: [published]
   push:
   schedule:
-  - cron: 0 0 * * 2
+    - cron: 0 0 * * 2
   watch:
     types: started
     
 jobs:
-- name: Upload a Build Artifact
-  uses: actions/upload-artifact@v4.6.0
-  with:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.0
+        with:
     # Artifact name
-    name: # optional, default is artifact
+          name: test.zip # optional, default is artifact
     # A file, directory or wildcard pattern that describes what to upload
-    path: 
+          path: ip.sh
     # The desired behavior if no files are found using the provided path.
-      - ip.sh
 #Available Options:
 #  warn: Output a warning but do not fail the action
 #  error: Fail the action with an error message
