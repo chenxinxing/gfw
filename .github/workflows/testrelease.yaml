@@ -19,7 +19,7 @@ jobs:
     # Artifact name
           name: test.zip # optional, default is artifact
     # A file, directory or wildcard pattern that describes what to upload
-          path: ip.sh
+          path: /ip.sh
     # The desired behavior if no files are found using the provided path.
 #Available Options:
 #  warn: Output a warning but do not fail the action
