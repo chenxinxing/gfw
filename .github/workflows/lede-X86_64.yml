@@ -56,7 +56,9 @@ jobs:
     - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
       run: | 
         cd /mnt
-        su - root
+        ls -ld /mnt
+        sudo chown $(id -un):$(id -gn) /mnt
+        ls -ld /mnt
         git clone https://github.com/coolsnowwolf/lede
         cd lede
         #echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
