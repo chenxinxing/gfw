@@ -24,6 +24,9 @@ jobs:
     - name: 系统环境更新、清理空间 | Installation depends
       run: |
         whoami
+        ls -ld /mnt
+        sudo chown $(id -un):$(id -gn) /mnt
+        ls -ld /mnt
         docker images -q | xargs --no-run-if-empty docker rmi -f
         docker system prune -af
         #sudo -E apt-get -y purge *azure-cli* *ghc* *zulu* *llvm* *firefox* *google* *dotnet* *powershell* *openjdk*
