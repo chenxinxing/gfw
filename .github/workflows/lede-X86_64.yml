@@ -27,7 +27,8 @@ jobs:
         docker images -q | xargs --no-run-if-empty docker rmi -f
         docker system prune -af
         sudo rm -rf /swapfile /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-        sudo -E apt-get -y purge *azure-cli* *ghc* *zulu* *llvm* *firefox* *google* *dotnet* *powershell* *openjdk*
+        #sudo -E apt-get -y purge *azure-cli* *ghc* *zulu* *llvm* *firefox* *google* *dotnet* *powershell* *openjdk*
+        sudo -E apt purge -y $(apt list --installed 2>/dev/null | grep -E -e '^azure-cli' -e 'ghc[0-9]' -e '^zulu' -e 'llvm-[0-9]+' -e 'firefox' -e 'google' -e 'dotnet' -e 'powershell' -e 'openjdk' | cut -d/ -f1)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo dpkg --configure -a
