@@ -55,6 +55,7 @@ jobs:
   
     - name: 下载openwrt coolsnowwolf lean源代码 | Clone source code
       run: | 
+        cd /mnt
         git clone https://github.com/coolsnowwolf/lede
         cd lede
         #echo "src-git OpenClash https://github.com/vernesong/OpenClash.git" >> feeds.conf.default
@@ -106,7 +107,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: lede-X86_64
-        path: lede/bin
+        path: /mnt/lede/bin
         
     - name: 钉钉通知
       uses: ghostoy/dingtalk-action@master
